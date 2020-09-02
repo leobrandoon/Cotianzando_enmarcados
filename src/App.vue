@@ -2,7 +2,8 @@
   <div id="app" class="container">
     <img alt="ledodeco logo" src="./assets/logo_leodeco.jpg" width="150px" />
     <Navbar />
-    <Cotizador />
+
+    <Cotizador  />
   </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
