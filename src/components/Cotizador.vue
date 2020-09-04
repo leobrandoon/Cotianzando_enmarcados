@@ -21,24 +21,55 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Selecciona como quieres enmarcar</h5>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value id="defaultCheck1" />
-              <label class="form-check-label" for="defaultCheck1">Vidrio Sencillo</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value id="defaultCheck1" />
-              <label class="form-check-label" for="defaultCheck1">Vidrio Opaco</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value id="defaultCheck1" />
-              <label class="form-check-label" for="defaultCheck1">passepartout</label>
-            </div>
+
+            <!-- Seleciona el tipo de vidrio -->
+            <select class="custom-select" value required="required" v-model:="Cristal">
+              <option selected>Tipo Vidrio</option>
+              <option value="1">Sencillo</option>
+              <option value="2">Anti Reflejo</option>
+            </select>
+            <!-- seleciona si lleva margen -->
+            <select class="custom-select" value required="required" v-model:="Margen">
+              <option selected>Tipo Margen</option>
+              <option value="1">passepartout</option>
+              <option value="2">Folia</option>
+            </select>
 
             <!-- aca va la lista de molduras disponibles -->
 
-            <ul id="Molduras">
-              <li v-for="TipoMolduras in TipoMoldura">{{TipoMoldura.moldura}}</li>
-            </ul>
+            <select class="custom-select" value required="required" v-model:="Tipomol">
+              <option selected>Tipo Moldura</option>
+              <option value="1">Plana</option>
+              <option value="2">Espejo</option>
+              <option value="3">Corniza</option>
+              <option value="3">Diseño</option>
+            </select>
+
+            <select class="custom-select" value required="required" v-model:="Diseño">
+              <option selected>Diseño Moldura</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <!-- misma forma de selecionar pero con objeto -->
+            <select class="custom-select" value required="required" v-model:="Diseño">
+              <option selected>Diseño Moldura array</option>
+              <option
+                v-for="moldura in molduras"
+                v-bind:value="moldura.value"
+                :key="moldura"
+              >{{ moldura.text }}</option>
+            </select>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card-body">Total por Enmarcar</div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-header">Aca debe ir el $total</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -53,6 +84,17 @@ export default {
     return {
       Ancho: "",
       Largo: "",
+      Cristal: "",
+      Margen: "",
+      Tipomol: "",
+      Diseño: "",
+
+      molduras: [
+        { text: "moldura plana 3cm", value: "" },
+        { text: "moldura plana 5cm", value: "" },
+        { text: "moldura plana 6cm", value: "" },
+        { text: "moldura plana 7cm", value: "" },
+      ],
     };
   },
 };
