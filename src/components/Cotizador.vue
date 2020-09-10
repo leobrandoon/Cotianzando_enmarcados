@@ -5,21 +5,19 @@
       <h1 class="display-4">Enmarcaciones Leo</h1>
       <p>el taller de enmarcaiones de Chile</p>
       <hr class="my-4" />
-      <div class="card row">
-        <div class="col" id="medidas">
-          <div class="card-body">
-            <h5 class="card-title">Ingresa las medidas de los que quieres enmarcar</h5>
-            <!-- ancho -->
-            <div class="row">
-              <div class="col-sm-6">
-                <label>Ancho</label>
-                <input type="number" class="form-control" required="required" v-model="Ancho" />
-              </div>
-              <!-- lago -->
-              <div class="col-sm-6">
-                <label>Largo</label>
-                <input type="email" class="form-control" required="required" v-model="Largo" />
-              </div>
+      <div class="col" id="medidas">
+        <div class="card-body">
+          <h5 class="card-title">Ingresa las medidas de los que quieres enmarcar</h5>
+          <!-- ancho -->
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Ancho</label>
+              <input type="number" class="form-control" required="required" v-model="Ancho" />
+            </div>
+            <!-- lago -->
+            <div class="col-sm-6">
+              <label>Largo</label>
+              <input type="email" class="form-control" required="required" v-model="Largo" />
             </div>
           </div>
         </div>
@@ -33,40 +31,31 @@
               <!-- Seleciona el tipo de vidrio -->
               <select class="custom-select" value required="required" v-model:="Cristal">
                 <option selected>Tipo Vidrio</option>
-                <option value="1">Sencillo</option>
-                <option value="2">Anti Reflejo</option>
+                <option
+                  v-for="vidrio in vidrios"
+                  v-bind:value="vidrio.value"
+                  :key="vidrio"
+                >{{ vidrio.id }}</option>
               </select>
               <!-- seleciona si lleva margen -->
               <select class="custom-select" value required="required" v-model:="Margen">
                 <option selected>Tipo Margen</option>
-                <option value="1">passepartout</option>
-                <option value="2">Folia</option>
+                <option
+                  v-for="margen in margenes"
+                  v-bind:value="margen.value"
+                  :key="margen"
+                >{{ margen.id }}</option>
               </select>
 
               <!-- aca va la lista de molduras disponibles -->
-
-              <select class="custom-select" value required="required" v-model:="Tipomol">
-                <option selected>Tipo Moldura</option>
-                <option value="1">Plana</option>
-                <option value="2">Espejo</option>
-                <option value="3">Corniza</option>
-                <option value="3">Diseño</option>
-              </select>
-
-              <select class="custom-select" value required="required" v-model:="Diseño">
-                <option selected>Diseño Moldura</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
               <!-- misma forma de selecionar pero con objeto -->
               <select class="custom-select" value required="required" v-model:="Diseño">
-                <option selected>Diseño Moldura array</option>
+                <option selected>Tipo Moldura</option>
                 <option
                   v-for="moldura in molduras"
                   v-bind:value="moldura.value"
                   :key="moldura"
-                >{{ moldura.text }}</option>
+                >{{ moldura.id }}</option>
               </select>
               <div class="row">
                 <div class="col-sm-6">
@@ -93,18 +82,37 @@ export default {
     return {
       Ancho: "",
       Largo: "",
-      Cristal: "",
-      Margen: "",
-      Tipomol: "",
-      Diseño: "",
+      Cristal: [1],
+      Margen: [1],
+      Diseño: [1],
 
       molduras: [
-        { text: "moldura plana 3cm", value: "" },
-        { text: "moldura plana 5cm", value: "" },
-        { text: "moldura plana 6cm", value: "" },
-        { text: "moldura plana 7cm", value: "" },
+        { id: "moldura plana 2cm", price: 7000 },
+        { id: "moldura plana 3cm", price: 7000 },
+        { id: "moldura plana 5cm", price: 7000 },
+        { id: "moldura plana 6cm", price: 8000 },
+        { id: "moldura plana 10cm", price: 9000 },
+      ],
+      margenes: [
+        { id: "passepartout 5cm", price: 7000 },
+        { id: "passepartout 10cm", price: 7000 },
+        { id: "passepartout 15cm", price: 7000 },
+      ],
+      vidrios: [
+        { id: "vidrio sencillo", price: 7000 },
+        { id: "vidrio opaco", price: 7000 },
       ],
     };
+  },
+  computed: {
+    // aca calculamos los metros cuadrados y lineales
+    metrolineal: function () {
+      return ((Number(this.Ancho) + Number(this.Largo)) / 100) * 2;
+    },
+
+    metrocuadrado: function () {
+      return (Number(this.Largo) * Number(this.Ancho)) / 100;
+    },
   },
 };
 </script>
